@@ -71,8 +71,13 @@ def ask_total(text: str) -> float:
 # provider plumbing
 # --------------------------------------------------------------------------- #
 def _structured_json(system: str, user: str, json_schema: dict) -> dict:
-    if config.provider() == "claude":
+    p = config.provider()
+    if p == "claude":
         return _claude_json(system, user, json_schema)
+    if p == "gemini":
+        return _gemini_json(system, user, json_schema)
+    if p == "groq":
+        return _groq_json(system, user, json_schema)
     return _ollama_json(system, user, json_schema)
 
 
@@ -89,6 +94,59 @@ def _ollama_json(system: str, user: str, json_schema: dict) -> dict:
         options={"temperature": 0},
     )
     return json.loads(resp["message"]["content"])
+
+
+def _groq_json(system: str, user: str, json_schema: dict) -> dict:
+    from groq import Groq
+
+    client = Groq(api_key=config.GROQ_API_KEY)
+    resp = client.chat.completions.create(
+        model=config.GROQ_MODEL,
+        messages=[
+            {"role": "system", "content": f"{system}\n\nRespond with valid JSON matching this schema: {json.dumps(json_schema)}"},
+            {"role": "user", "content": user},
+        ],
+        response_format={"type": "json_object"},
+        temperature=0,
+    )
+    return json.loads(resp.choices[0].message.content)
+
+
+def _resolve_refs(schema: dict) -> dict:
+    """Inline $defs so Gemini can handle Pydantic-generated schemas."""
+    import copy
+    schema = copy.deepcopy(schema)
+    defs = schema.pop("$defs", {})
+
+    def resolve(obj):
+        if isinstance(obj, dict):
+            if "$ref" in obj:
+                ref_name = obj["$ref"].split("/")[-1]
+                return resolve(defs[ref_name])
+            return {k: resolve(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [resolve(i) for i in obj]
+        return obj
+
+    return resolve(schema)
+
+
+def _gemini_json(system: str, user: str, json_schema: dict) -> dict:
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(api_key=config.GEMINI_API_KEY)
+    resp = client.models.generate_content(
+        model=config.GEMINI_MODEL,
+        contents=user,
+        config=types.GenerateContentConfig(
+            system_instruction=system,
+            response_mime_type="application/json",
+            response_schema=_resolve_refs(json_schema),
+            temperature=0,
+        ),
+    )
+    return json.loads(resp.text)
 
 
 def _claude_json(system: str, user: str, json_schema: dict) -> dict:
