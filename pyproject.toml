@@ -1,0 +1,13 @@
+[project]
+name = "protein-tracker"
+version = "0.1.0"
+description = "AI nutrition logger built to be defended: LLM parses, a verified DB grounds, an eval proves it. (2-Day Production AI Thinking Intensive)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.40.0",
+    "ollama>=0.4.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.9.0",
+    "python-dotenv>=1.0.1",
+]

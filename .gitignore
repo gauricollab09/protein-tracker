@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Env / secrets
+.env
+
+# Generated cache (reproducible from the live API)
+data/off_cache.json
+
+# macOS
+.DS_Store

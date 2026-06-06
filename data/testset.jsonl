@@ -1,0 +1,18 @@
+{"text": "150 g grilled chicken breast", "truth_g": 46.5, "mode": "single"}
+{"text": "200 g cooked ground beef", "truth_g": 52.0, "mode": "single"}
+{"text": "200 g salmon fillet", "truth_g": 50.0, "mode": "single"}
+{"text": "150 g firm tofu", "truth_g": 12.0, "mode": "single"}
+{"text": "100 g cheddar cheese", "truth_g": 25.0, "mode": "single"}
+{"text": "30 g almonds", "truth_g": 6.3, "mode": "single"}
+{"text": "3 eggs", "truth_g": 18.9, "mode": "countable"}
+{"text": "1 scoop whey protein", "truth_g": 24.0, "mode": "countable"}
+{"text": "1 can of tuna", "truth_g": 35.0, "mode": "countable"}
+{"text": "2 slices of whole wheat bread", "truth_g": 7.2, "mode": "countable"}
+{"text": "1 cup greek yogurt", "truth_g": 24.5, "mode": "volume"}
+{"text": "1 cup cooked lentils", "truth_g": 18.0, "mode": "volume"}
+{"text": "2 tbsp peanut butter", "truth_g": 8.0, "mode": "volume"}
+{"text": "250 ml whole milk", "truth_g": 8.5, "mode": "volume"}
+{"text": "two scrambled eggs with a slice of cheddar", "truth_g": 19.6, "mode": "compound"}
+{"text": "a chicken caesar salad", "truth_g": 35.0, "mode": "compound"}
+{"text": "a bowl of oatmeal with a banana", "truth_g": 7.5, "mode": "compound"}
+{"text": "1 katori of homemade rajma", "truth_g": 15.0, "mode": "out_of_db"}
