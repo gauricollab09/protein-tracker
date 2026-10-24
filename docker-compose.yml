@@ -1,0 +1,27 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # cloud mode: set ANTHROPIC_API_KEY in your shell or .env
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # local mode: by default this reaches the HOST's Ollama (host.docker.internal).
+      # For the fully-local profile (no host dependency), run:
+      #   OLLAMA_HOST=http://ollama:11434 docker compose --profile local up --build
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://host.docker.internal:11434}
+      PROTEIN_LLM: ${PROTEIN_LLM:-auto}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  ollama:
+    profiles: ["local"]
+    image: ollama/ollama:latest
+    volumes:
+      - ollama-models:/root/.ollama
+    ports:
+      - "11434:11434"
+
+volumes:
+  ollama-models:

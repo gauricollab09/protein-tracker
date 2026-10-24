@@ -1,0 +1,38 @@
+Food-name matcher bake-off — 21 names vs 31 DB keys
+==============================================================================
+name                  expected          substring    bm25         fuzzy        
+------------------------------------------------------------------------------
+grilled chicken breastchicken breast    ✓ chicken breast✓ chicken breast✓ chicken breast
+cheddar cheese        cheddar           ✓ cheddar    ✓ cheddar    ✓ cheddar    
+salmon fillet         salmon            ✓ salmon     ✓ salmon     ✓ salmon     
+ground beef           ground beef       ✓ ground beef✓ ground beef✓ ground beef
+almonds               almonds           ✓ almonds    ✓ almonds    ✓ almonds    
+eggs                  egg               ✓ egg        ✗ —          ✓ egg        
+bananas               banana            ✓ banana     ✗ —          ✓ banana     
+lentil                lentils           ✗ —          ✗ —          ✓ lentils    
+chicken               chicken breast    ✗ —          ✓ chicken breast✓ chicken breast
+wheat bread           wheat bread       ✓ wheat bread✓ wheat bread✓ wheat bread
+breast of chicken     chicken breast    ✗ —          ✓ chicken breast✓ chicken breast
+whole-wheat bread     whole wheat bread ✗ wheat bread✓ whole wheat bread✓ whole wheat bread
+peanutbutter          peanut butter     ✗ —          ✗ —          ✓ peanut butter
+yoghurt               yogurt            ✗ —          ✗ —          ✓ yogurt     
+greek yoghurt         greek yogurt      ✗ —          ✓ greek yogurt✓ greek yogurt
+chedder cheese        cheddar           ✗ cheese     ✗ cheese     ✗ cheese     
+penut butter          peanut butter     ✗ —          ✓ peanut butter✓ peanut butter
+chx breast            chicken breast    ✗ —          ✓ chicken breast✗ —          
+rajma                 (no-hit)          ✓ —          ✓ —          ✓ —          
+paneer tikka          paneer            ✓ paneer     ✓ paneer     ✓ paneer     
+moong dal             (no-hit)          ✓ —          ✓ —          ✓ —          
+==============================================================================
+
+ACCURACY (correct key, incl. correct no-hits)
+  substring  11/21      52%   ██████████
+  bm25       15/21      71%   ██████████████
+  fuzzy      19/21      90%   ██████████████████
+
+  winner: fuzzy  (90%)  ← wired in via config.MATCHER
+
+  Read it for the round table: substring is the brittle baseline; BM25
+  fixes word-order/partial but is blind to spelling; fuzzy also catches
+  typos & spelling. What ALL three miss (e.g. 'chx breast') is where a
+  semantic/embedding matcher would be the next step.

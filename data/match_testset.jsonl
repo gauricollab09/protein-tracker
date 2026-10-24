@@ -1,0 +1,21 @@
+{"name": "grilled chicken breast", "expected": "chicken breast", "case": "clean"}
+{"name": "cheddar cheese", "expected": "cheddar", "case": "clean"}
+{"name": "salmon fillet", "expected": "salmon", "case": "clean"}
+{"name": "ground beef", "expected": "ground beef", "case": "clean"}
+{"name": "almonds", "expected": "almonds", "case": "clean"}
+{"name": "eggs", "expected": "egg", "case": "plural"}
+{"name": "bananas", "expected": "banana", "case": "plural"}
+{"name": "lentil", "expected": "lentils", "case": "plural"}
+{"name": "chicken", "expected": "chicken breast", "case": "missing-word"}
+{"name": "wheat bread", "expected": "wheat bread", "case": "missing-word"}
+{"name": "breast of chicken", "expected": "chicken breast", "case": "word-order"}
+{"name": "whole-wheat bread", "expected": "whole wheat bread", "case": "hyphen"}
+{"name": "peanutbutter", "expected": "peanut butter", "case": "no-space"}
+{"name": "yoghurt", "expected": "yogurt", "case": "spelling"}
+{"name": "greek yoghurt", "expected": "greek yogurt", "case": "spelling"}
+{"name": "chedder cheese", "expected": "cheddar", "case": "typo"}
+{"name": "penut butter", "expected": "peanut butter", "case": "typo"}
+{"name": "chx breast", "expected": "chicken breast", "case": "abbrev"}
+{"name": "rajma", "expected": null, "case": "out-of-db"}
+{"name": "paneer tikka", "expected": "paneer", "case": "compound-ingredient"}
+{"name": "moong dal", "expected": null, "case": "out-of-db"}

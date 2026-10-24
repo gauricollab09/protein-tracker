@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "protein-tracker"
+version = "1.0.0"
+description = "AI nutrition logger built to be defended: LLM parses, a verified DB grounds, an eval proves it."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.40.0",
+    "fastapi>=0.115",
+    "httpx>=0.27.0",
+    "ollama>=0.4.0",
+    "pydantic>=2.9.0",
+    "python-dotenv>=1.0.1",
+    "rank-bm25>=0.2.2",
+    "rapidfuzz>=3.9.0",
+    "uvicorn>=0.30",
+]
+
+[project.scripts]
+protein-api = "protein.api:main"
+protein-eval = "protein.eval_pipeline:main"
+protein-eval-match = "protein.eval_matchers:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[tool.setuptools]
+packages = ["protein"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
